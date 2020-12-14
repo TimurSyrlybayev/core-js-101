@@ -27,8 +27,17 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  if (num % 3 === 0 && num % 5 === 0) {
+    return 'FizzBuzz';
+  }
+  if (num % 3 === 0) {
+    return 'Fizz';
+  }
+  if (num % 5 === 0) {
+    return 'Buzz';
+  }
+  return num;
 }
 
 
@@ -43,8 +52,11 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  while (n === 1) {
+    return 1;
+  }
+  return getFactorial(n - 1) * n;
 }
 
 
@@ -60,8 +72,12 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let count = 0;
+  for (let i = n1; i <= n2; i += 1) {
+    count += i;
+  }
+  return count;
 }
 
 
@@ -80,8 +96,8 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  return (a < (b + c) && b < (a + c) && c < (a + b));
 }
 
 
@@ -164,8 +180,29 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const arr = str.split('');
+  const arr2 = [];
+  const arr3 = [];
+  arr.map((element, index) => {
+    if (element !== ' ') {
+      for (let i = index + 1; i < arr.length; i += 1) {
+        if (element === arr[i]) {
+          if (!arr2.includes(element)) {
+            arr2.push(element);
+          }
+        }
+      }
+    }
+    return null;
+  });
+  arr.map((element) => {
+    if (!arr2.includes(element)) {
+      arr3.push(element);
+    }
+    return null;
+  });
+  return arr3[0];
 }
 
 
@@ -208,8 +245,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
 
@@ -225,8 +262,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return num.toString().split('').reverse().join('');
 }
 
 
@@ -250,8 +287,52 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const arr = ccn.toString().split('');
+  let flag = false;
+  if (arr.length % 2 !== 0) {
+    let sum = 0;
+    let sum2 = 0;
+    for (let i = 0; i < arr.length; i += 2) {
+      sum += Number(arr[i]);
+    }
+    arr.map((element, index) => {
+      if (index % 2 !== 0) {
+        if (Number(element) * 2 < 10) {
+          sum2 += Number(element) * 2;
+        } else {
+          sum2 += Number(element) * 2 - 9;
+        }
+      }
+      return null;
+    });
+    sum += sum2;
+    if (sum % 10 === 0) {
+      flag = true;
+    }
+  }
+  if (arr.length % 2 === 0) {
+    let sum = 0;
+    let sum2 = 0;
+    for (let i = 1; i < arr.length; i += 2) {
+      sum += Number(arr[i]);
+    }
+    arr.map((element, index) => {
+      if (index % 2 === 0) {
+        if (Number(element) * 2 < 10) {
+          sum2 += Number(element) * 2;
+        } else {
+          sum2 += Number(element) * 2 - 9;
+        }
+      }
+      return null;
+    });
+    sum += sum2;
+    if (sum % 10 === 0) {
+      flag = true;
+    }
+  }
+  return flag;
 }
 
 /**
@@ -268,8 +349,23 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const arr = num.toString().split('');
+  let sum = 0;
+  function summarize(array) {
+    array.reduce((previousValue, currentValue) => {
+      sum = Number(previousValue) + Number(currentValue);
+      return sum;
+    });
+    if (sum > 9) {
+      summarize(sum.toString().split(''));
+    } else {
+      return sum;
+    }
+    return null;
+  }
+  summarize(arr);
+  return sum;
 }
 
 
